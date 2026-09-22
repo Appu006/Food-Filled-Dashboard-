@@ -9,7 +9,7 @@ const links = [
 
 export function NavBar() {
   return (
-    <header className="sticky top-0 z-[1000] backdrop-blur-sm">
+    <header className="sticky top-0 z-[1400] rounded-t-[23px] backdrop-blur-sm">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-6 gap-y-2 px-4 py-4 sm:px-6">
         <div className="flex items-center gap-3">
           <img src={foodfilledLogo} alt="FoodFilled Inc." className="h-12 w-auto sm:h-14" />
@@ -37,7 +37,7 @@ export function NavBar() {
           to="/record"
           className={({ isActive }) =>
             `flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border-2 border-brand-ink px-4 py-2 font-display text-sm font-semibold uppercase text-white shadow-[2px_2px_0_#111] transition-colors ${
-              isActive ? 'bg-brand-orange-dark' : 'bg-brand-purple hover:bg-brand-purple/90'
+              isActive ? 'bg-brand-orange-dark' : 'bg-brand-green hover:bg-brand-green/90'
             }`
           }
         >
