@@ -67,6 +67,12 @@ export function Dashboard() {
 
       <HeatMapView points={points} />
 
+      <div className="flex items-center gap-3">
+        <div className="h-1 flex-1 rounded-full bg-brand-ink/15" />
+        <span className="text-xs font-bold uppercase tracking-wide text-brand-navy/40">Delivery breakdown</span>
+        <div className="h-1 flex-1 rounded-full bg-brand-ink/15" />
+      </div>
+
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-5">
         <div className="rounded-2xl border-2 border-brand-ink bg-white p-4 shadow-[3px_3px_0_#111] lg:col-span-3">
           <div className="mb-3 flex items-center justify-between">
