@@ -44,7 +44,7 @@ function colorForValue(v: number): [number, number, number, number] {
   const r = lo.rgb[0] + (hi.rgb[0] - lo.rgb[0]) * t;
   const g = lo.rgb[1] + (hi.rgb[1] - lo.rgb[1]) * t;
   const b = lo.rgb[2] + (hi.rgb[2] - lo.rgb[2]) * t;
-  const alpha = Math.round(30 + clamped * 205); // fade in from ~12% to ~90% opacity
+  const alpha = Math.round(20 + clamped * 150); // fade in from ~8% to ~67% opacity, so map labels stay legible underneath
   return [Math.round(r), Math.round(g), Math.round(b), alpha];
 }
 

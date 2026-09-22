@@ -27,6 +27,17 @@ body {
   border-radius: 10px;
 }
 
+/* Keep the required OSM attribution small and unobtrusive. */
+.leaflet-control-attribution {
+  background: rgba(255, 255, 255, 0.75);
+  font-size: 10px;
+  color: #4b5c53;
+  padding: 1px 6px;
+}
+.leaflet-control-attribution a {
+  color: #2f6b4f;
+}
+
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;

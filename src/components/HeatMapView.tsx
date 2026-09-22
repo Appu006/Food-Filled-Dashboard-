@@ -85,11 +85,16 @@ export function HeatMapView({ points, compact = false }: { points: HeatPoint[]; 
           zoom={4}
           scrollWheelZoom
           style={{ width: '100%', height: '100%' }}
-          attributionControl={false}
         >
+          {/* Standard keyless OSM tiles — no watermark or degraded labels,
+              unlike CARTO's anonymous basemap endpoint. Attribution below
+              is required by OSM's tile usage policy, not optional branding.
+              A production build should move to a paid/self-hosted tile
+              provider rather than relying on OSM's free demo tile server. */}
           <TileLayer
-            url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-            attribution="&copy; OpenStreetMap contributors &copy; CARTO"
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution="&copy; <a href=&quot;https://www.openstreetmap.org/copyright&quot;>OpenStreetMap</a> contributors"
+            maxZoom={19}
           />
           <HeatmapLayer points={points} radiusKm={IMPACT_RADIUS_KM} onHover={setHovered} />
           <FlyToView view={view} points={points} />
