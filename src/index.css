@@ -24,22 +24,21 @@
   color-scheme: light;
 }
 
-html, body, #root {
-  height: 100%;
-}
-
-body {
+html, body {
   margin: 0;
-  font-family: var(--font-sans);
-  background: var(--color-brand-lavender);
-  color: var(--color-brand-ink);
 }
 
-/* Inset app content from the viewport edge so the fixed .page-frame border
-   (below) has room to sit around it without covering anything. */
-#root {
+/* Persistent green "picture frame" around the whole page, matching
+   foodfilled.org. This is the page background itself (not a fixed overlay),
+   so it never leaves a transparent gap at the viewport corners: it's a
+   plain solid rectangle, and only the content window inside it (see
+   .page-frame-inner on the app root in App.tsx) has rounded corners. */
+body {
   padding: 14px;
   box-sizing: border-box;
+  background: var(--color-brand-green);
+  font-family: var(--font-sans);
+  color: var(--color-brand-ink);
 }
 
 /* Leaflet needs an explicit height on its container */
@@ -72,15 +71,4 @@ body {
 ::-webkit-scrollbar-thumb {
   background: #b9bce8;
   border-radius: 4px;
-}
-
-/* Persistent green frame around the viewport, matching foodfilled.org.
-   Fixed (not absolute) so it stays put while page content scrolls under it. */
-.page-frame {
-  position: fixed;
-  inset: 0;
-  border: 10px solid var(--color-brand-green);
-  border-radius: 22px;
-  pointer-events: none;
-  z-index: 9999;
 }

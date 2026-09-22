@@ -6,17 +6,14 @@ import { ManageAgencies } from './pages/ManageAgencies';
 
 function App() {
   return (
-    <>
-      <div className="page-frame" />
-      <div className="min-h-screen bg-brand-lavender">
-        <NavBar />
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/record" element={<RecordDelivery />} />
-          <Route path="/agencies" element={<ManageAgencies />} />
-        </Routes>
-      </div>
-    </>
+    <div className="min-h-[calc(100vh-28px)] rounded-[26px] border-[3px] border-brand-ink bg-brand-lavender">
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/record" element={<RecordDelivery />} />
+        <Route path="/agencies" element={<ManageAgencies />} />
+      </Routes>
+    </div>
   );
 }
 
