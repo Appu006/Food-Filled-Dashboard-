@@ -17,15 +17,16 @@ interface Props {
   onHover?: (point: HeatPoint | null) => void;
 }
 
-// Colour ramp for zone intensity. Chosen to vary in both hue AND lightness
-// (pale straw -> amber -> deep red) so meaning doesn't rely on hue alone —
-// supports NFR-06 alongside the text legend and hover labels.
+// Colour ramp for zone intensity, built around the FoodFilled brand orange
+// (#f5820e sits at the "moderate" stop). Still varies in lightness as well
+// as hue (pale cream -> orange -> deep red) so meaning doesn't rely on hue
+// alone — supports NFR-06 alongside the text legend and hover labels.
 const STOPS: Array<{ v: number; rgb: [number, number, number] }> = [
-  { v: 0, rgb: [255, 247, 210] },
-  { v: 0.15, rgb: [255, 208, 111] },
-  { v: 0.4, rgb: [247, 148, 51] },
-  { v: 0.7, rgb: [224, 84, 43] },
-  { v: 1, rgb: [163, 28, 28] },
+  { v: 0, rgb: [255, 244, 214] },
+  { v: 0.15, rgb: [255, 199, 110] },
+  { v: 0.4, rgb: [245, 130, 14] },
+  { v: 0.7, rgb: [217, 84, 20] },
+  { v: 1, rgb: [162, 28, 28] },
 ];
 
 function colorForValue(v: number): [number, number, number, number] {
@@ -153,8 +154,8 @@ export function HeatmapLayer({ points, radiusKm, onHover }: Props) {
       ctx.save();
       ctx.setLineDash([4, 4]);
       ctx.lineWidth = 1.5;
-      ctx.strokeStyle = 'rgba(100,116,110,0.55)';
-      ctx.fillStyle = 'rgba(100,116,110,0.06)';
+      ctx.strokeStyle = 'rgba(22,32,74,0.55)';
+      ctx.fillStyle = 'rgba(22,32,74,0.06)';
       for (const z of zeroActivity) {
         ctx.beginPath();
         ctx.arc(z.cx, z.cy, z.r, 0, Math.PI * 2);

@@ -6,7 +6,7 @@ import { ManageAgencies } from './pages/ManageAgencies';
 
 function App() {
   return (
-    <div className="min-h-screen bg-[#f4f6f5]">
+    <div className="min-h-screen bg-brand-lavender">
       <NavBar />
       <Routes>
         <Route path="/" element={<Dashboard />} />

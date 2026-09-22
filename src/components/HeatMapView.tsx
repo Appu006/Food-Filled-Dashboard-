@@ -27,11 +27,11 @@ function isInVictoria(p: HeatPoint) {
 }
 
 const LEGEND = [
-  { label: 'No activity yet', swatch: 'rgba(100,116,110,0.15)', dashed: true },
-  { label: 'Low impact', swatch: 'rgb(255,208,111)' },
-  { label: 'Moderate impact', swatch: 'rgb(247,148,51)' },
-  { label: 'High impact', swatch: 'rgb(224,84,43)' },
-  { label: 'Very high impact', swatch: 'rgb(163,28,28)' },
+  { label: 'No activity yet', swatch: 'rgba(22,32,74,0.12)', dashed: true },
+  { label: 'Low impact', swatch: 'rgb(255,199,110)' },
+  { label: 'Moderate impact', swatch: 'rgb(245,130,14)' },
+  { label: 'High impact', swatch: 'rgb(217,84,20)' },
+  { label: 'Very high impact', swatch: 'rgb(162,28,28)' },
 ];
 
 function FlyToView({ view, points }: { view: ViewMode; points: HeatPoint[] }) {
@@ -56,21 +56,21 @@ export function HeatMapView({ points, compact = false }: { points: HeatPoint[]; 
   const [hovered, setHovered] = useState<HeatPoint | null>(null);
 
   return (
-    <div className="relative w-full overflow-hidden rounded-xl border border-emerald-900/10 bg-white shadow-sm">
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-emerald-900/10 bg-emerald-50/60 px-4 py-2.5">
+    <div className="relative w-full overflow-hidden rounded-2xl border-2 border-brand-ink bg-white shadow-[3px_3px_0_#111]">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-brand-ink bg-brand-lavender/50 px-4 py-2.5">
         <div>
-          <h2 className="text-sm font-semibold text-emerald-950">Impact heatmap</h2>
-          <p className="text-xs text-emerald-800/70">
+          <h2 className="font-display text-sm font-semibold text-brand-navy">Impact heatmap</h2>
+          <p className="text-xs font-medium text-brand-navy/70">
             Zone intensity = share of each agency's monthly food supply that came from this NFP.
           </p>
         </div>
-        <div className="flex overflow-hidden rounded-lg border border-emerald-700/30 text-sm">
+        <div className="flex overflow-hidden rounded-full border-2 border-brand-ink text-sm">
           {(Object.keys(VIEW_LABELS) as ViewMode[]).map((key) => (
             <button
               key={key}
               onClick={() => setView(key)}
-              className={`px-3 py-1.5 font-medium transition-colors ${
-                view === key ? 'bg-emerald-700 text-white' : 'bg-white text-emerald-800 hover:bg-emerald-50'
+              className={`px-3.5 py-1.5 font-bold transition-colors ${
+                view === key ? 'bg-brand-orange text-white' : 'bg-white text-brand-navy hover:bg-brand-lavender/60'
               }`}
             >
               {VIEW_LABELS[key]}
@@ -101,24 +101,24 @@ export function HeatMapView({ points, compact = false }: { points: HeatPoint[]; 
         </MapContainer>
 
         {hovered && (
-          <div className="pointer-events-none absolute left-3 top-3 z-[1000] max-w-[220px] rounded-lg border border-emerald-900/10 bg-white/95 px-3 py-2 shadow-lg">
-            <p className="text-sm font-semibold text-emerald-950">{hovered.name}</p>
-            <p className="text-xs font-medium text-emerald-700">{hovered.band}</p>
+          <div className="pointer-events-none absolute left-3 top-3 z-[1000] max-w-[220px] rounded-xl border-2 border-brand-ink bg-white/95 px-3 py-2 shadow-[2px_2px_0_#111]">
+            <p className="text-sm font-semibold text-brand-navy">{hovered.name}</p>
+            <p className="text-xs font-bold text-brand-orange">{hovered.band}</p>
           </div>
         )}
 
-        <div className="absolute bottom-3 left-3 z-[1000] rounded-lg border border-emerald-900/10 bg-white/95 px-3 py-2 shadow-lg">
-          <p className="mb-1.5 flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wide text-emerald-900/70">
+        <div className="absolute bottom-3 left-3 z-[1000] rounded-xl border-2 border-brand-ink bg-white/95 px-3 py-2 shadow-[2px_2px_0_#111]">
+          <p className="mb-1.5 flex items-center gap-1 text-[11px] font-bold uppercase tracking-wide text-brand-navy/70">
             <Info size={12} /> Legend
           </p>
           <div className="flex flex-col gap-1">
             {LEGEND.map((item) => (
-              <div key={item.label} className="flex items-center gap-2 text-xs text-emerald-950">
+              <div key={item.label} className="flex items-center gap-2 text-xs font-medium text-brand-navy">
                 <span
-                  className="h-2.5 w-2.5 rounded-full"
+                  className="h-2.5 w-2.5 rounded-full border border-brand-ink/40"
                   style={{
                     background: item.swatch,
-                    border: item.dashed ? '1px dashed rgba(100,116,110,0.7)' : undefined,
+                    border: item.dashed ? '1px dashed rgba(22,32,74,0.5)' : undefined,
                   }}
                 />
                 {item.label}

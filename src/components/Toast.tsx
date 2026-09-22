@@ -38,14 +38,14 @@ export function ToastProvider({ children }: { children: ReactNode }) {
           <div
             key={t.id}
             role="status"
-            className={`flex items-start gap-2 rounded-lg border px-4 py-3 shadow-lg backdrop-blur-sm animate-[fadein_.15s_ease-out] ${
+            className={`flex items-start gap-2 rounded-xl border-2 border-brand-ink px-4 py-3 shadow-[3px_3px_0_#111] backdrop-blur-sm animate-[fadein_.15s_ease-out] ${
               t.kind === 'success'
-                ? 'border-emerald-200 bg-emerald-50/95 text-emerald-900'
-                : 'border-rose-200 bg-rose-50/95 text-rose-900'
+                ? 'bg-brand-green/15 text-brand-navy'
+                : 'bg-rose-50/95 text-rose-900'
             }`}
           >
             {t.kind === 'success' ? (
-              <CheckCircle2 size={18} className="mt-0.5 shrink-0 text-emerald-600" />
+              <CheckCircle2 size={18} className="mt-0.5 shrink-0 text-brand-green" />
             ) : (
               <AlertTriangle size={18} className="mt-0.5 shrink-0 text-rose-600" />
             )}

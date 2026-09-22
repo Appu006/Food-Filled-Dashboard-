@@ -19,64 +19,67 @@ export function ManageAgencies() {
     <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-8 sm:px-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="flex items-center gap-2 text-2xl font-semibold text-emerald-950">
-            <Building2 className="text-emerald-700" size={24} /> Manage agencies
+          <h1 className="flex items-center gap-2 font-display text-2xl font-semibold text-brand-navy">
+            <span className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-brand-ink bg-brand-purple text-white">
+              <Building2 size={18} />
+            </span>
+            Manage agencies
           </h1>
-          <p className="mt-1 text-sm text-emerald-900/60">
+          <p className="mt-1 text-sm font-medium text-brand-navy/60">
             Add, edit or remove the partner agencies volunteers can deliver to. Changes appear immediately in the
             delivery form and the heatmap.
           </p>
         </div>
         <button
           onClick={() => setEditing('new')}
-          className="flex items-center gap-2 rounded-lg bg-emerald-700 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-emerald-800"
+          className="flex items-center gap-2 rounded-full border-2 border-brand-ink bg-brand-orange px-4 py-2.5 text-sm font-bold text-white shadow-[2px_2px_0_#111] hover:bg-brand-orange-dark"
         >
           <Plus size={16} /> Add agency
         </button>
       </div>
 
-      <div className="overflow-hidden rounded-xl border border-emerald-900/10 bg-white shadow-sm">
+      <div className="overflow-hidden rounded-2xl border-2 border-brand-ink bg-white shadow-[3px_3px_0_#111]">
         <table className="w-full text-left text-sm">
-          <thead className="bg-emerald-50/60 text-xs uppercase tracking-wide text-emerald-900/60">
+          <thead className="border-b-2 border-brand-ink bg-brand-lavender/50 text-xs uppercase tracking-wide text-brand-navy/70">
             <tr>
-              <th className="px-4 py-3 font-medium">Agency</th>
-              <th className="px-4 py-3 font-medium">Address</th>
-              <th className="px-4 py-3 font-medium">Est. monthly output</th>
-              <th className="px-4 py-3 font-medium">This month</th>
-              <th className="px-4 py-3 font-medium">Added</th>
-              <th className="px-4 py-3 text-right font-medium">Actions</th>
+              <th className="px-4 py-3 font-bold">Agency</th>
+              <th className="px-4 py-3 font-bold">Address</th>
+              <th className="px-4 py-3 font-bold">Est. monthly output</th>
+              <th className="px-4 py-3 font-bold">This month</th>
+              <th className="px-4 py-3 font-bold">Added</th>
+              <th className="px-4 py-3 text-right font-bold">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-emerald-900/5">
+          <tbody className="divide-y divide-brand-ink/10">
             {agencies.map((agency) => {
               const deliveredKg = deliveredKgThisMonth(agency.id, deliveries);
               const outputKg = agencyMonthlyOutputKg(agency);
               return (
-                <tr key={agency.id} className="hover:bg-emerald-50/30">
-                  <td className="px-4 py-3 font-medium text-emerald-950">{agency.name}</td>
-                  <td className="px-4 py-3 text-emerald-900/70">
+                <tr key={agency.id} className="hover:bg-brand-lavender/20">
+                  <td className="px-4 py-3 font-semibold text-brand-navy">{agency.name}</td>
+                  <td className="px-4 py-3 text-brand-navy/70">
                     <span className="flex items-center gap-1.5">
-                      <MapPinned size={13} className="shrink-0 text-emerald-700/60" />
+                      <MapPinned size={13} className="shrink-0 text-brand-orange" />
                       {agency.address}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-emerald-900/70">
+                  <td className="px-4 py-3 text-brand-navy/70">
                     {agency.monthlyMeals.toLocaleString()} meals
-                    <span className="block text-xs text-emerald-900/40">≈ {outputKg.toFixed(0)} kg</span>
+                    <span className="block text-xs text-brand-navy/40">≈ {outputKg.toFixed(0)} kg</span>
                   </td>
-                  <td className="px-4 py-3 text-emerald-900/70">{deliveredKg.toFixed(1)} kg delivered</td>
-                  <td className="px-4 py-3 text-emerald-900/50">{formatDate(agency.createdAt)}</td>
+                  <td className="px-4 py-3 text-brand-navy/70">{deliveredKg.toFixed(1)} kg delivered</td>
+                  <td className="px-4 py-3 text-brand-navy/50">{formatDate(agency.createdAt)}</td>
                   <td className="px-4 py-3">
                     <div className="flex justify-end gap-1.5">
                       <button
                         onClick={() => setEditing(agency)}
-                        className="flex items-center gap-1 rounded-md border border-emerald-900/15 px-2.5 py-1.5 text-xs font-medium text-emerald-900 hover:bg-emerald-50"
+                        className="flex items-center gap-1 rounded-full border-2 border-brand-ink px-2.5 py-1.5 text-xs font-bold text-brand-navy hover:bg-brand-lavender/50"
                       >
                         <Pencil size={13} /> Edit
                       </button>
                       <button
                         onClick={() => setPendingDelete(agency)}
-                        className="flex items-center gap-1 rounded-md border border-rose-200 px-2.5 py-1.5 text-xs font-medium text-rose-700 hover:bg-rose-50"
+                        className="flex items-center gap-1 rounded-full border-2 border-rose-400 px-2.5 py-1.5 text-xs font-bold text-rose-700 hover:bg-rose-50"
                       >
                         <Trash2 size={13} /> Remove
                       </button>
@@ -87,7 +90,7 @@ export function ManageAgencies() {
             })}
             {agencies.length === 0 && (
               <tr>
-                <td colSpan={6} className="px-4 py-8 text-center text-sm text-emerald-900/50">
+                <td colSpan={6} className="px-4 py-8 text-center text-sm text-brand-navy/50">
                   No agencies yet. Add one to get started.
                 </td>
               </tr>
