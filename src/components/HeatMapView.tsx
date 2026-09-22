@@ -28,9 +28,9 @@ function isInVictoria(p: HeatPoint) {
 
 const LEGEND = [
   { label: 'No activity yet', swatch: 'rgba(22,32,74,0.12)', dashed: true },
-  { label: 'Low impact', swatch: 'rgb(255,199,110)' },
-  { label: 'Moderate impact', swatch: 'rgb(245,130,14)' },
-  { label: 'High impact', swatch: 'rgb(217,84,20)' },
+  { label: 'Low impact', swatch: 'rgb(255,210,150)' },
+  { label: 'Moderate impact', swatch: 'rgb(254,159,75)' },
+  { label: 'High impact', swatch: 'rgb(222,106,45)' },
   { label: 'Very high impact', swatch: 'rgb(162,28,28)' },
 ];
 

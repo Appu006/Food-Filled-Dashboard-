@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
-import { Map, PackagePlus, Building2, Citrus } from 'lucide-react';
+import { Map, PackagePlus, Building2 } from 'lucide-react';
 import { WaveDivider } from './WaveDivider';
+import foodfilledIcon from '../assets/foodfilled-icon.png';
 
 const links = [
   { to: '/', label: 'Impact Heatmap', icon: Map, end: true },
@@ -14,9 +15,7 @@ export function NavBar() {
       <div className="border-b-2 border-brand-ink bg-white">
         <div className="mx-auto flex max-w-7xl items-center gap-6 px-4 py-3 sm:px-6">
           <div className="flex items-center gap-2.5 pr-2">
-            <span className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-brand-ink bg-brand-orange text-white shadow-[2px_2px_0_#111]">
-              <Citrus size={20} strokeWidth={2.5} />
-            </span>
+            <img src={foodfilledIcon} alt="FoodFilled" className="h-11 w-auto" />
             <div className="leading-tight">
               <p className="font-display text-base font-semibold text-brand-navy">FoodFilled Impact</p>
               <p className="text-[11px] font-medium text-brand-navy/60">Prototype dashboard</p>

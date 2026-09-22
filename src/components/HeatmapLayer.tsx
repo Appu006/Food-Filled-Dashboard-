@@ -18,14 +18,15 @@ interface Props {
 }
 
 // Colour ramp for zone intensity, built around the FoodFilled brand orange
-// (#f5820e sits at the "moderate" stop). Still varies in lightness as well
-// as hue (pale cream -> orange -> deep red) so meaning doesn't rely on hue
-// alone — supports NFR-06 alongside the text legend and hover labels.
+// (#fe9f4b, sampled from the logo, sits at the "moderate" stop). Still
+// varies in lightness as well as hue (pale cream -> orange -> deep red) so
+// meaning doesn't rely on hue alone — supports NFR-06 alongside the text
+// legend and hover labels.
 const STOPS: Array<{ v: number; rgb: [number, number, number] }> = [
-  { v: 0, rgb: [255, 244, 214] },
-  { v: 0.15, rgb: [255, 199, 110] },
-  { v: 0.4, rgb: [245, 130, 14] },
-  { v: 0.7, rgb: [217, 84, 20] },
+  { v: 0, rgb: [255, 246, 224] },
+  { v: 0.15, rgb: [255, 210, 150] },
+  { v: 0.4, rgb: [254, 159, 75] },
+  { v: 0.7, rgb: [222, 106, 45] },
   { v: 1, rgb: [162, 28, 28] },
 ];
 

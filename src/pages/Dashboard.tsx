@@ -18,7 +18,7 @@ import {
   YAxis,
 } from 'recharts';
 
-const CHART_COLORS = ['#f5820e', '#16204a', '#9b4de0', '#39b44a', '#4a55c9'];
+const CHART_COLORS = ['#fe9f4b', '#16204a', '#9b4de0', '#39b44a', '#4a55c9'];
 
 export function Dashboard() {
   const { agencies, activeAgencies, deliveries } = useData();

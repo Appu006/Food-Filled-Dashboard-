@@ -1,13 +1,14 @@
 @import "tailwindcss";
 
 /* -----------------------------------------------------------------------
-   FoodFilled-inspired brand system — colors and fonts sampled by eye from
-   screenshots of foodfilled.org, not an official style guide. Swap these
-   for exact brand hex codes / the real logo asset if/when available.
+   FoodFilled brand system. Orange (#fe9f4b) is sampled directly from the
+   official logo file; navy/blue/purple/green are still eyeballed from
+   screenshots of foodfilled.org since no style guide was provided — swap
+   for exact hex codes if/when available.
 ----------------------------------------------------------------------- */
 @theme {
-  --color-brand-orange: #f5820e;
-  --color-brand-orange-dark: #d96c0a;
+  --color-brand-orange: #fe9f4b;
+  --color-brand-orange-dark: #d0823d;
   --color-brand-navy: #16204a;
   --color-brand-blue: #4a55c9;
   --color-brand-purple: #9b4de0;
