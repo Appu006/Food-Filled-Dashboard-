@@ -17,38 +17,41 @@ interface Props {
   onHover?: (point: HeatPoint | null) => void;
 }
 
-// Colour ramp for zone intensity, built around the FoodFilled brand orange
-// (#fe9f4b, sampled from the logo, sits at the "moderate" stop). Still
-// varies in lightness as well as hue (pale cream -> orange -> deep red) so
-// meaning doesn't rely on hue alone — supports NFR-06 alongside the text
-// legend and hover labels.
-const STOPS: Array<{ v: number; rgb: [number, number, number] }> = [
-  { v: 0, rgb: [255, 246, 224] },
-  { v: 0.15, rgb: [255, 210, 150] },
-  { v: 0.4, rgb: [254, 159, 75] },
-  { v: 0.7, rgb: [222, 106, 45] },
-  { v: 1, rgb: [162, 28, 28] },
+// Colour ramp for zone intensity, built around the FoodFilled brand purple
+// (#b558f3, sampled from the provided swatch, sits at the "high" stop).
+// Still varies in lightness as well as hue (pale lilac -> violet -> deep
+// plum) so meaning doesn't rely on hue alone — supports NFR-06 alongside
+// the text legend and hover labels. Values are SNAPPED to the nearest stop
+// (see colorForValue) rather than interpolated, for a blocky, banded look
+// instead of a smooth gradient.
+export const HEAT_STOPS: Array<{ v: number; rgb: [number, number, number] }> = [
+  { v: 0, rgb: [247, 240, 253] },
+  { v: 0.2, rgb: [224, 195, 250] },
+  { v: 0.4, rgb: [199, 140, 247] },
+  { v: 0.6, rgb: [181, 88, 243] },
+  { v: 0.8, rgb: [138, 43, 199] },
+  { v: 1, rgb: [88, 24, 130] },
 ];
 
 function colorForValue(v: number): [number, number, number, number] {
   const clamped = Math.max(0, Math.min(1, v));
-  let lo = STOPS[0];
-  let hi = STOPS[STOPS.length - 1];
-  for (let i = 0; i < STOPS.length - 1; i++) {
-    if (clamped >= STOPS[i].v && clamped <= STOPS[i + 1].v) {
-      lo = STOPS[i];
-      hi = STOPS[i + 1];
-      break;
+  let nearest = HEAT_STOPS[0];
+  let bestDist = Infinity;
+  for (const stop of HEAT_STOPS) {
+    const d = Math.abs(stop.v - clamped);
+    if (d < bestDist) {
+      bestDist = d;
+      nearest = stop;
     }
   }
-  const span = hi.v - lo.v || 1;
-  const t = (clamped - lo.v) / span;
-  const r = lo.rgb[0] + (hi.rgb[0] - lo.rgb[0]) * t;
-  const g = lo.rgb[1] + (hi.rgb[1] - lo.rgb[1]) * t;
-  const b = lo.rgb[2] + (hi.rgb[2] - lo.rgb[2]) * t;
   const alpha = Math.round(20 + clamped * 150); // fade in from ~8% to ~67% opacity, so map labels stay legible underneath
-  return [Math.round(r), Math.round(g), Math.round(b), alpha];
+  return [nearest.rgb[0], nearest.rgb[1], nearest.rgb[2], alpha];
 }
+
+// Grid cell size for the blocky renderer, and the minimum on-screen zone
+// radius (matches the cell size so there's always at least one cell to
+// paint / hover, and the hover hit-test matches what's visually drawn).
+const CELL_PX = 18;
 
 // Small equirectangular approximation — accurate enough at 5km scale.
 function metersOffsetToLatLng(lat: number, lng: number, km: number, bearingDeg: number): [number, number] {
@@ -82,7 +85,7 @@ export function HeatmapLayer({ points, radiusKm, onHover }: Props) {
       if (!ctx || size.x <= 0 || size.y <= 0) return;
       ctx.clearRect(0, 0, size.x, size.y);
 
-      const cell = 4; // px, downsample for perf
+      const cell = CELL_PX; // coarse on purpose, for the blocky/banded look (not perf)
       const gridW = Math.max(1, Math.ceil(size.x / cell));
       const gridH = Math.max(1, Math.ceil(size.y / cell));
       const grid = new Float32Array(gridW * gridH);
@@ -100,7 +103,9 @@ export function HeatmapLayer({ points, radiusKm, onHover }: Props) {
         // Floor radius so zones stay legible when zoomed out to national scale
         // (a real 5km zone is genuinely a speck at that scale — this is a
         // deliberate UX affordance for the prototype, not a data change).
-        const radiusPx = Math.max(trueRadiusPx, 5);
+        // Floored to at least one grid cell so the blocky renderer always
+        // has a cell centre to land on and paint.
+        const radiusPx = Math.max(trueRadiusPx, cell);
 
         if (p.contribution <= 0) {
           zeroActivity.push({ cx, cy, r: radiusPx });
@@ -147,7 +152,7 @@ export function HeatmapLayer({ points, radiusKm, onHover }: Props) {
           imgData.data[i * 4 + 3] = a;
         }
         offCtx.putImageData(imgData, 0, 0);
-        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingEnabled = false; // blocky pixel edges, not a smooth blur
         ctx.drawImage(off, 0, 0, gridW, gridH, 0, 0, size.x, size.y);
       }
 
@@ -195,7 +200,7 @@ export function HeatmapLayer({ points, radiusKm, onHover }: Props) {
         const [edgeLat, edgeLng] = metersOffsetToLatLng(p.lat, p.lng, radiusKm, 90);
         const radiusPx = Math.max(
           map.latLngToLayerPoint([p.lat, p.lng]).distanceTo(map.latLngToLayerPoint([edgeLat, edgeLng])),
-          5,
+          CELL_PX,
         );
         if (d <= radiusPx && d < closestDist) {
           closest = p;

@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, useMap } from 'react-leaflet';
 import L from 'leaflet';
-import { HeatmapLayer, type HeatPoint } from './HeatmapLayer';
+import { HeatmapLayer, HEAT_STOPS, type HeatPoint } from './HeatmapLayer';
+import { AgencyPinsLayer } from './AgencyPinsLayer';
 import { IMPACT_RADIUS_KM } from '../lib/calculations';
 import { Info } from 'lucide-react';
 
@@ -26,12 +27,13 @@ function isInVictoria(p: HeatPoint) {
   return p.lat <= -33.9 && p.lat >= -39.2 && p.lng >= 140.9 && p.lng <= 150.0;
 }
 
+const rgb = (i: number) => `rgb(${HEAT_STOPS[i].rgb.join(',')})`;
 const LEGEND = [
   { label: 'No activity yet', swatch: 'rgba(22,32,74,0.12)', dashed: true },
-  { label: 'Low impact', swatch: 'rgb(255,210,150)' },
-  { label: 'Moderate impact', swatch: 'rgb(254,159,75)' },
-  { label: 'High impact', swatch: 'rgb(222,106,45)' },
-  { label: 'Very high impact', swatch: 'rgb(162,28,28)' },
+  { label: 'Low impact', swatch: rgb(1) },
+  { label: 'Moderate impact', swatch: rgb(2) },
+  { label: 'High impact', swatch: rgb(3) },
+  { label: 'Very high impact', swatch: rgb(5) },
 ];
 
 function FlyToView({ view, points }: { view: ViewMode; points: HeatPoint[] }) {
@@ -97,6 +99,7 @@ export function HeatMapView({ points, compact = false }: { points: HeatPoint[]; 
             maxZoom={19}
           />
           <HeatmapLayer points={points} radiusKm={IMPACT_RADIUS_KM} onHover={setHovered} />
+          <AgencyPinsLayer points={points} />
           <FlyToView view={view} points={points} />
         </MapContainer>
 
